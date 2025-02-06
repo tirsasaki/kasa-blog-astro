@@ -1,5 +1,7 @@
+
 Kasa Blog is a modern and minimalistic blog website designed for sharing and distributing content seamlessly.
 [Preview Blog](https://kasa-blog.vercel.app/)
+![KasaBlog](/public/img/kasa-light.png)
 
 ## 🚀 Pagespeed 
 ![speed](/public/speed.png)
