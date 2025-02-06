@@ -23,7 +23,7 @@ export default defineConfig({
       },
     }),
   ],
-  site: 'http://lu-hua.vercel.app',
+  site: 'https://kasa-blog.vercel.app',
   base: '/',
   image: {
     service: {
