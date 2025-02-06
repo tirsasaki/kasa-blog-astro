@@ -1,6 +1,5 @@
-
-
-Wan'er is a modern and minimalistic blog website designed for sharing and distributing content seamlessly.
+Kasa Blog is a modern and minimalistic blog website designed for sharing and distributing content seamlessly.
+[Preview Blog](https://kasa-blog.vercel.app/)
 
 ## 🚀 Pagespeed 
 ![speed](/public/speed.png)
