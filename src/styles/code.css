@@ -1,0 +1,48 @@
+/* src/styles/code.css */
+pre {
+    padding: 1em;
+    border-radius: 8px;
+    background: #000000 !important;
+    overflow-x: auto;
+    position: relative;
+  }
+  
+pre code {
+    background: transparent !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9em;
+    line-height: 1.5;
+  }
+  /* Styling untuk inline code */
+  :not(pre) > code {
+    background: rgba(80, 158, 236, 0.2) !important;
+    padding: 0.2em 0.4em !important;
+    border-radius: 6px !important;
+    font-size: 0.9em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  
+  .dark :not(pre) > code {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #e6e6e6;
+  }
+  
+  .code-block {
+    position: relative;
+  }
+  
+  /* Language badge */
+  .code-block::before {
+    content: attr(data-language);
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    font-size: 0.7rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 0 0 4px 4px;
+    color: #fff;
+    text-transform: uppercase;
+  }

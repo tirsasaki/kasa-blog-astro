@@ -1,0 +1,102 @@
+<div class="relative inline-block text-left">
+  <select
+    id="theme-select"
+    class="block w-24 rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200"
+    aria-label="Select theme"
+  >
+    <option value="light">Light</option>
+    <option value="dark">Dark</option>
+    <option value="system">System</option>
+  </select>
+</div>
+
+<script>
+  class ThemeController {
+    private themeSelect: HTMLSelectElement | null;
+    private observer: MutationObserver;
+
+    constructor() {
+      this.themeSelect = null;
+      this.observer = new MutationObserver(this.handleDOMChanges.bind(this));
+      this.init();
+    }
+
+    private init() {
+      // Initial setup
+      this.setupThemeSelect();
+      
+      // Watch for DOM changes (especially for mobile menu)
+      this.observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    }
+
+    private setupThemeSelect() {
+      // Get all theme selects (could be multiple due to mobile menu)
+      const themeSelects = document.querySelectorAll('#theme-select');
+      themeSelects.forEach(select => {
+        if (select instanceof HTMLSelectElement) {
+          this.initializeSelect(select);
+        }
+      });
+    }
+
+    private initializeSelect(select: HTMLSelectElement) {
+      // Set initial value
+      const savedTheme = localStorage.getItem('theme') || 'system';
+      select.value = savedTheme;
+      
+      // Apply initial theme
+      this.applyTheme(savedTheme);
+      
+      // Add change listener
+      select.addEventListener('change', (e) => {
+        const newTheme = (e.target as HTMLSelectElement).value;
+        this.applyTheme(newTheme);
+        
+        // Sync all other theme selects
+        this.syncOtherSelects(select, newTheme);
+      });
+    }
+
+    private syncOtherSelects(changedSelect: HTMLSelectElement, theme: string) {
+      const allSelects = document.querySelectorAll('#theme-select');
+      allSelects.forEach(select => {
+        if (select instanceof HTMLSelectElement && select !== changedSelect) {
+          select.value = theme;
+        }
+      });
+    }
+
+    private applyTheme(theme: string) {
+      const rootEl = document.documentElement;
+      const isDark = theme === 'system' 
+        ? window.matchMedia('(prefers-color-scheme: dark)').matches 
+        : theme === 'dark';
+      
+      rootEl.classList.toggle('dark', isDark);
+      localStorage.setItem('theme', theme);
+    }
+
+    private handleDOMChanges() {
+      // Check for new theme selects when DOM changes
+      this.setupThemeSelect();
+    }
+  }
+
+  // Initialize theme controller
+  let themeController: ThemeController;
+
+  // Setup for Astro View Transitions
+  document.addEventListener('astro:page-load', () => {
+    themeController = new ThemeController();
+  });
+
+  // Fallback for initial page load
+  document.addEventListener('DOMContentLoaded', () => {
+    if (!themeController) {
+      themeController = new ThemeController();
+    }
+  });
+</script>

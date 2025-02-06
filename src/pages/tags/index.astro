@@ -1,0 +1,42 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const tags = [...new Set(posts.flatMap(post => post.data.tags))];
+
+// Hitung jumlah post per tag
+const tagCount = tags.reduce((acc, tag) => {
+  acc[tag] = posts.filter(post => 
+    post.data.tags.includes(tag)
+  ).length;
+  return acc;
+}, {} as Record<string, number>);
+---
+
+<Layout title="Tags">
+  <section class="py-12 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="lg:text-center mb-16">
+        <h1 class="text-3xl leading-8 font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+          Tags
+        </h1>
+        <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+          Browse posts by tag
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-4 justify-center">
+        {tags.map(tag => (
+          <a 
+            href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+            class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+          >
+            <span class="text-gray-900 dark:text-white font-medium">#{tag}</span>
+            <span class="ml-2 text-gray-600 dark:text-gray-300">({tagCount[tag]})</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

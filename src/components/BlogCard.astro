@@ -1,0 +1,84 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  author: string;
+  slug: string;
+  image?: string;
+  tags?: string[];
+  categories?: string[];
+}
+
+const { 
+  title, 
+  description, 
+  pubDate, 
+  author, 
+  slug, 
+  image, 
+  tags = [], 
+  categories = ['Uncategorized']
+} = Astro.props;
+
+const formattedDate = pubDate.toLocaleDateString('id-ID', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<article class="bg-white shadow-lg rounded-lg overflow-hidden dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+  {image && (
+    <div class="w-full h-48 overflow-hidden">
+      <Image 
+        src={image}
+        alt={title}
+        width={700}
+        height={400}
+        format="webp"
+        class="w-full h-full object-cover"
+        loading="lazy"
+      />
+    </div>
+  )}
+  <div class="p-6">
+    {categories && categories.length > 0 && (
+      <div class="flex flex-wrap gap-2 mb-2">
+        {categories.map(category => (
+          <a 
+            href={`/categories/${category.toLowerCase()}`} 
+            class="py-1 text-blue-800 dark:text-blue-300 border-b border-blue-300 hover:border-blue-800">
+            {category}
+          </a>
+        ))}
+      </div>
+    )}
+    <p class="text-sm text-gray-500">{formattedDate} • {author}</p>
+    <h3 class="mt-2 text-xl font-semibold text-gray-900 dark:prose-invert">
+      <a href={`/blog/${slug}`} class="hover:text-blue-600">
+        {title}
+      </a>
+    </h3>
+    <p class="mt-3 text-gray-500 line-clamp-3">{description}</p>
+    {tags && tags.length > 0 && (
+      <div class="mt-4 flex flex-wrap gap-2">
+        {tags.map(tag => (
+          <a 
+            href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`} 
+            class="px-2 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300"
+          >
+            #{tag}
+          </a>
+        ))}
+      </div>
+    )}
+    <div class="mt-4">
+      <a href={`/blog/${slug}`} class="text-blue-600 hover:text-blue-500">
+        Read More →
+      </a>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,12 @@
+---
+const measurementId = import.meta.env.PUBLIC_GA_ID;
+---
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script type="text/partytown" async src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}></script>
+<script type="text/partytown" define:vars={{measurementId}}>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', measurementId);
+</script>

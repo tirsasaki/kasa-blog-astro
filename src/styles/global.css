@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Light theme */
+  :root {
+    --color-text-primary: 17 24 39;     /* gray-900 */
+    --color-text-secondary: 75 85 99;    /* gray-600 */
+    --color-background: 255 255 255;     /* white */
+    --color-background-secondary: 249 250 251; /* gray-50 */
+  }
+
+  /* Dark theme */
+  :root.dark {
+    --color-text-primary: 255 255 255;   /* white */
+    --color-text-secondary: 209 213 219; /* gray-300 */
+    --color-background: 17 24 39;        /* gray-900 */
+    --color-background-secondary: 31 41 55; /* gray-800 */
+  }
+}
+
+/* Base styles */
+@layer components {
+  .content-area {
+    @apply bg-white dark:bg-gray-800 
+           text-gray-900 dark:text-gray-100
+           p-6 rounded-lg shadow-sm;
+  }
+
+  .heading-primary {
+    @apply text-gray-900 dark:text-white 
+           font-bold text-2xl mb-4;
+  }
+
+  .text-content {
+    @apply text-gray-700 dark:text-gray-200;
+  }
+
+  .link-primary {
+    @apply text-blue-600 dark:text-blue-400 
+           hover:text-blue-800 dark:hover:text-blue-300;
+  }
+}
+
+body {
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.theme-transition {
+  @apply transition-colors duration-200;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  @apply text-gray-900 dark:text-white;
+}
+
+/* Mobile Navigation Styles */
+@layer components {
+  .hamburger {
+    @apply hidden;
+  }
+
+  .nav-links {
+    @apply flex items-center space-x-4;
+  }
+
+  /* Mobile styles */
+  @media (max-width: 768px) {
+    .hamburger {
+      @apply block fixed right-4 top-4 z-50 cursor-pointer p-2;
+      width: 24px;
+      height: 24px;
+    }
+
+    .hamburger-line {
+      @apply bg-gray-900 dark:bg-white absolute h-0.5 w-6 transition-all duration-200;
+    }
+
+    .hamburger-line:nth-child(1) {
+      top: 25%;
+    }
+
+    .hamburger-line:nth-child(2) {
+      top: 50%;
+    }
+
+    .hamburger-line:nth-child(3) {
+      top: 75%;
+    }
+
+    /* Hamburger animation when active */
+    .hamburger.active .hamburger-line:nth-child(1) {
+      @apply -rotate-45 top-1/2;
+    }
+
+    .hamburger.active .hamburger-line:nth-child(2) {
+      @apply opacity-0;
+    }
+
+    .hamburger.active .hamburger-line:nth-child(3) {
+      @apply rotate-45 top-1/2;
+    }
+
+    .mobile-nav {
+      @apply fixed top-0 right-0 h-screen w-64 
+             bg-white dark:bg-gray-800
+             shadow-lg
+             transform transition-transform duration-200 ease-in-out
+             translate-x-full;
+    }
+
+    .mobile-nav.active {
+      @apply translate-x-0;
+    }
+
+    .mobile-nav-content {
+      @apply flex flex-col items-start gap-6 p-8 pt-20;
+    }
+
+    .mobile-nav a {
+      @apply text-gray-700 dark:text-gray-300 
+             hover:text-gray-900 dark:hover:text-white
+             text-lg;
+    }
+  }
+}

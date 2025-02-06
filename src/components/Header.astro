@@ -1,0 +1,69 @@
+---
+import ThemeSelect from './ThemeSelect.astro';
+import { website } from "../config";
+---
+<header class="bg-white dark:bg-gray-950 shadow-sm transition-colors duration-200">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <img src="/logo.webp" alt="{website.name} Logo" class="h-8 w-8" width="100" height="100">
+        <a href="/" class="text-xl font-bold text-gray-900 dark:text-white">{website.name}</a>
+      </div>
+      
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-4">
+        <a href="/" class="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Home</a>
+        <a href="/blog" class="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Blog</a>
+        <a href="/about" class="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">About</a>
+        <a href="https://github.com/tirsasaki" class="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">github</a>
+        <ThemeSelect />
+      </div>
+
+      <!-- Mobile Navigation Button -->
+      <button class="hamburger md:hidden" aria-label="Menu" id="hamburger">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+
+      <!-- Mobile Navigation Menu -->
+      <div class="mobile-nav md:hidden" id="mobile-nav">
+        <div class="mobile-nav-content">
+          <a href="/" class="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Home</a>
+          <a href="/blog" class="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Blog</a>
+          <a href="/about" class="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">About</a>
+          <a href="https://github.com/tirsasaki" class="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">github</a>
+          <div class="pt-4">
+            <ThemeSelect />
+          </div>
+        </div>
+      </div>
+    </nav>
+</header>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobile-nav');
+
+  hamburger?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    hamburger.classList.toggle('active');
+    mobileNav?.classList.toggle('active');
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (!target.closest('.mobile-nav') && !target.closest('.hamburger')) {
+      hamburger?.classList.remove('active');
+      mobileNav?.classList.remove('active');
+    }
+  });
+
+  // Close menu when pressing escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      hamburger?.classList.remove('active');
+      mobileNav?.classList.remove('active');
+    }
+  });
+</script>

@@ -1,0 +1,56 @@
+---
+title: "Blog Start Guide"
+description: "Front-matter in Wan'er is a metadata section at the beginning of a Markdown file, enclosed between triple dashes (`---`). It provides essential information about the post and helps in categorization and rendering."
+pubDate: 2025-02-04
+author: "Tirsasaki"
+image: "/img/1.webp"
+categories: ["guide"]
+tags: ["featured", "Front-matter", "Explanation"]
+---
+
+### Understanding Front-matter in Wan'er
+Front-matter in Wan'er is a metadata section at the beginning of a Markdown file, enclosed between triple dashes (`---`). It provides essential information about the post and helps in categorization and rendering.
+
+```bash
+---
+title: "Understanding Simple Guide to Wan'er"
+description: "A brief guide on front-matter in Wan'er and where to place post files."
+pubDate: 2025-02-04
+author: "Your Name"
+image: "/img/picture.png"
+categories: ["guide"]
+tags: ["Astro", "Front-matter", "Explanation"]
+---
+```
+
+Front-matter in Wan'er is a metadata section at the beginning of a Markdown file, enclosed between triple dashes (`---`). It provides essential information about the post and helps in categorization and rendering.
+
+### Explanation of Each Field:
+
+- **title**: Specifies the title of the post.
+- **description**: Provides a short summary or excerpt of the post.
+- **pubDate**: The publication date of the post, formatted as `YYYY-MM-DD`.
+- **author**: Defines the author's name.
+- **image**: Sets the featured image for the post, usually relative to the site's asset directory.
+- **tags**: An array of keywords to categorize the post. If `featured` is included, the post will be highlighted in the `featured` section.
+- **categories**: Specifies the primary topics or sections the post belongs to, helping to organize content into broader groupings.
+
+### Where to Place the Post Files
+
+To maintain a structured content management system, post files should be stored in the appropriate directory:
+
+```
+/content/
+  ├── blog/
+  │   ├── example-post.md
+  │   ├── another-post.md
+  
+```
+
+### Directory Explanation:
+- **`/content/blog/`**: Stores all general blog posts.
+
+### Create a New Article via Terminal
+- You can create a new article using the terminal with the following command: `pnpm create-post new-article.mdx`
+
+

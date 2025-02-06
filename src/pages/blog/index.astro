@@ -1,0 +1,86 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import BlogCard from "../../components/BlogCard.astro";
+
+const allPosts = await getCollection("blog");
+
+const sortedPosts = allPosts.sort(
+  (a, b) =>
+    new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
+);
+
+const POSTS_PER_PAGE = 6;
+const totalPages = Math.ceil(sortedPosts.length / POSTS_PER_PAGE);
+
+const paginatedPosts = sortedPosts.slice(0, POSTS_PER_PAGE);
+
+const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+---
+
+<Layout title="Blog">
+  <section
+    class="py-12 bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100"
+  >
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="lg:text-center mb-16">
+        <h1
+          class="text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl dark:prose-invert"
+        >
+          Blog Posts
+        </h1>
+        <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+          Explore my latest thoughts and writings
+        </p>
+      </div>
+
+      {
+        paginatedPosts.length > 0 ? (
+          <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {paginatedPosts.map((post) => (
+              <BlogCard
+                title={post.data.title}
+                description={post.data.description}
+                pubDate={post.data.pubDate}
+                author={post.data.author}
+                slug={post.slug}
+                image={post.data.image}
+                categories={post.data.categories || ["Uncategorized"]}
+                tags={post.data.tags}
+              />
+            ))}
+          </div>
+        ) : (
+          <p class="text-center text-gray-500 text-xl">No blog posts found.</p>
+        )
+      }
+
+      {/* Pagination Navigation */}
+      {
+        totalPages > 1 && (
+          <div class="flex justify-center items-center mt-12 space-x-4">
+            {pageNumbers.map((page) => (
+              <a
+                href={page === 1 ? "/blog" : `/blog/${page}`}
+                class={`px-4 py-2 border rounded-md dark:border-gray-700 ${
+                  page === 1 ? "bg-blue-500 text-white" : "hover:bg-gray-700"
+                }`}
+              >
+                {page}
+              </a>
+            ))}
+
+            {totalPages > 1 && (
+              <a
+                href={`/blog/2`}
+                class="px-4 py-2 border rounded-md hover:bg-gray-700 dark:border-gray-700"
+              >
+                Next
+              </a>
+            )}
+          </div>
+        )
+      }
+    </div>
+  </section>
+</Layout>
