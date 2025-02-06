@@ -40,8 +40,8 @@ To set up and run this project locally, follow these steps:
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/tirsasaki/lu-hua.git
-   cd lu-hua
+   git clone https://github.com/tirsasaki/kasa-blog.git
+   cd kasa-blog
    ```
 
 2. Install dependencies using pnpm:
