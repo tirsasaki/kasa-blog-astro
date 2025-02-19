@@ -1,96 +1,14 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import { getCollection } from "astro:content";
-import BlogCard from "../components/BlogCard.astro";
-import { website } from "../config";
-
-const posts = await getCollection("blog");
-
-const recentPosts = posts
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
-
-// Fetch 3 featured posts (for example based on the "featured" tag)
-const featuredPosts = posts
-  .filter((post) => post.data.tags?.includes("featured"))
-  .slice(0, 3);
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import FeaturedPosts from '../components/FeaturedPosts.astro';
+import LatestPosts from '../components/LatestPosts.astro';
 ---
 
-<Layout title={website.name}>
-  <section
-    class="py-12 bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-200"
-  >
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="lg:text-center mb-16">
-        <h1
-          class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl dark:bg-gray-950 text-gray-900 dark:text-gray-100"
-        >
-          Welcome to {website.name}
-        </h1>
-        <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-          A technology website built with Astro and styled using Tailwind CSS for blogging.
-        </p>
-      </div>
-
-      <!-- Latest Posts Section -->
-      <div class="mb-16">
-        <div class="flex items-center justify-between mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 dark:prose-invert">
-            Latest Posts
-          </h2>
-          <a
-            href="/blog"
-            class="text-blue-600 hover:text-blue-700 font-medium"
-          >
-            See all →
-          </a>
-        </div>
-        <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {
-            recentPosts.map((post) => (
-              <BlogCard
-                title={post.data.title}
-                description={post.data.description}
-                pubDate={post.data.pubDate}
-                author={post.data.author}
-                slug={post.slug}
-                image={post.data.image}
-                categories={post.data.categories || ["Uncategorized"]}
-              />
-            ))
-          }
-        </div>
-      </div>
-
-      <!-- Featured Posts Section -->
-      <div>
-        <div class="flex items-center justify-between mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 dark:prose-invert">
-            Featured Posts
-          </h2>
-          <a
-            href="/blog?filter=featured"
-            class="text-blue-600 hover:text-blue-700 font-medium"
-          >
-            See all →
-          </a>
-        </div>
-        <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {
-            featuredPosts.map((post) => (
-              <BlogCard
-                title={post.data.title}
-                description={post.data.description}
-                pubDate={post.data.pubDate}
-                author={post.data.author}
-                slug={post.slug}
-                image={post.data.image}
-                categories={post.data.categories || ["Uncategorized"]}
-              />
-            ))
-          }
-        </div>
-      </div>
-    </div>
-  </section>
+<Layout title="Home">
+  <main>
+    <Hero />
+    <FeaturedPosts />
+    <LatestPosts />
+  </main>
 </Layout>

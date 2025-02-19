@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import BlogCard from './BlogCard.astro';
+
+const posts = await getCollection('blog');
+const latestPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 6);
+---
+
+<section class="py-8 bg-gray-50 dark:bg-gray-900">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold mb-6">Latest Posts</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {latestPosts.map((post) => (
+        <BlogCard 
+          title={post.data.title}
+          description={post.data.description}
+          pubDate={post.data.pubDate}
+          author={post.data.author}
+          slug={post.slug}
+          image={post.data.image}
+          tags={post.data.tags}
+          categories={post.data.categories}
+        />
+      ))}
+    </div>
+  </div>
+</section>

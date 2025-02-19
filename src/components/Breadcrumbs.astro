@@ -1,0 +1,40 @@
+---
+interface Props {
+  pageName?: string;
+  category?: string;
+}
+
+const { pageName, category } = Astro.props;
+
+const segments = [
+  { name: 'Home', path: '/' },
+  ...(category ? [{ name: category, path: `/categories/${category.toLowerCase()}` }] : []),
+  ...(pageName ? [{ name: pageName }] : [])
+];
+---
+
+<nav aria-label="Breadcrumb" class="w-full max-w-4xl mx-auto mb-6">
+  <ol class="flex items-center space-x-2 text-sm md:text-base text-gray-600 dark:text-gray-400">
+    {segments.map((segment, index) => (
+      <li class="flex items-center">
+        {index > 0 && (
+          <svg class="w-5 h-5 mx-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        )}
+        {segment.path ? (
+          <a 
+            href={segment.path}
+            class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
+          >
+            {segment.name}
+          </a>
+        ) : (
+          <span class="text-gray-900 dark:text-white font-medium">
+            {segment.name}
+          </span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
