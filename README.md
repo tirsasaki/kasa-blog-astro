@@ -33,8 +33,8 @@ Write content using the power of Markdown and MDX (Markdown for the component er
 ## 💻 Deployment
 
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/tirsasaki/kasa-blog)
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/tirsasaki/kasa-blog)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/tirsasaki/kasa-blog-astro)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/tirsasaki/kasa-blog-astro)
 
 ## 🛠 Installation
 
