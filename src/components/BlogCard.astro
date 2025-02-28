@@ -32,7 +32,7 @@ const formattedDate = pubDate.toLocaleDateString('id-ID', {
 
 <article class="group relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
   {image && (
-    <div class="relative w-full h-64 overflow-hidden">
+    <a href={`/blog/${slug}`} class="relative w-full h-64 overflow-hidden block">
       <Image 
         src={image}
         alt={title}
@@ -51,7 +51,7 @@ const formattedDate = pubDate.toLocaleDateString('id-ID', {
           </span>
         </div>
       )}
-    </div>
+    </a>
   )}
   
   <div class="p-6">
